@@ -1,4 +1,6 @@
 
+![](Pasted%20image%2020261018035832.png)
+
 counter.sv
 ![700](IAC%20Labs/Pasted%20image%2020261015104029.png)
 ![Pasted image 20261015104114](IAC%20Labs/Pasted%20image%2020261015104114.png)
@@ -103,3 +105,154 @@ This is the simulation with the 3 cycle pause.
 This is the simulation with both steps implemented, the 3 cycle wait and the asynchronous reset.
 ![](Pasted%20image%2020261015145233.png)
 
+
+
+## Task 2: Linking Verilator simulation with Vbuddy
+
+---
+
+In this task, you will learn how to modify the testbench to interface with the Vbuddy board. Before you start, copy **_counter.sv_** and **_counter_tb.cpp_** to the task2 folder.
+
+You also need to make a copy of the files **_Vbuddy.cpp_** and **_Vbuddy.cfg_** from your Lab 1 folder to here.
+
+**Step 1: Set up the Vbuddy interface**
+
+Connect Vbuddy to your computer's USB port using a USB cable provided. Find out the name of the USB device used. How? This depends on whether you are using a MacBook or a PC.
+
+**_Window Users_** For Windows users, run the following script:
+
+~/Documents/iac/lab0-devtools/tools/attach_usb.sh
+
+This uses usbipd to search for the USB port that Vbuddy is connected to and share it with WSL. The script must be run every time Vbuddy is reconnected to the computer. You may wish to include this in your `doit.sh` script so that it runs automatically every time you run your code.
+
+Next enter the following command to find the name of your device:
+
+ls /dev/ttyU*
+
+You should see a device name similar to this:
+
+/dev/ttyUSB0
+
+Create a file: **_vbuddy.cfg_**, which contains the device name as the only line (terminated with CR). You may use VS Code or the Linux nano editor to do this. You should only have to do this once, as the device name will usually be the same when Vbuddy is reconnected.
+
+**Step 2: Modify testbench for Vbuddy**
+
+Copy **_counter.sv_** and **_count_tb.cpp_** to your task2 folder.
+
+Modify the testbench file **_count_tb.cpp_** to include **Vbuddy function** as shown in the diagram below. What they do are self-explanatory. You can find a list of the current Vbuddy functions which you can include in the testbench file here. These functions are of the form **_vbdXxxx_**.
+
+![](Pasted%20image%2020261017171805.png)
+
+![](Pasted%20image%2020261018010451.png)
+
+![](1000049559.mp4)
+
+**Step 3: Explore flag feature on Vbuddy**
+
+Vbuddy’s rotary encode has a push-button switch. Vbuddy keeps an internal flag which, by default, will toggle between ‘0’ and ‘1’ each time the button is pressed. You can interrogate this toggle switch state with **_vbdFlag();_**, which will return its current state and then toggle. A little postbox showing the flag state is drawn in the footer of the TFT display.
+
+You can use this feature to enable and disable the counter by modifying line 48 of the testbench with:
+
+    top->en = vbdFlag();
+
+Re-compile and test.
+
+Instead of showing count values on 7-segment displays, you may also plot this on the TFT by replacing the **_vdbHex()_** section with the command **_vbdPlot()_**. You may want to increase the number of clock cycles to simulate because plotting a dot is much faster than outputting to the 7-segment display. You can start/stop the counter with the flag.
+
+    vbdPlot(int(top->count), 0, 255);
+
+![](20261018_024703.mp4)
+
+## TEST YOURSELF CHALLENGE:
+
+Modify your counter and testbench files so that the **_en_** signal controls the direction of counting: ‘1’ for up and ‘0’ for down, via the **_vbdFlag()_** function.
+
+![](Pasted%20image%2020261018032642.png)
+
+![](20261018_032612.mp4)
+
+
+## Task 3: Vbuddy parameter & flag in one-shot mode (OPTIONAL)
+
+The rotary encodes (EC11) provides input from Vbuddy to the Verilator simulation model. Turning the encoder changes a stored parameter value on Vbuddy independently from the Verilator simulation. This parameter value can be read using the **_vbdValue( )_** function, and is displayed on the bottom left corner of the TFT screen in both decimal and hexadecimal format.
+
+**Step 1: Loadable counter**
+
+Copy across to the task3 folder the required files: **_counter_tb.cpp, vbuddy.cpp, doit.sh_** and **_vbuddy.cfg_**, but not **_counter.sv_**. Instead use a modified version of **_counter.sv_** shown below. This version replaces the enable signal **_en_** with a load signal **_ld_**. When **_ld_** is asserted, the value **_v_** is loaded into the counter as a pre-set value.
+
+module counter #(
+  parameter WIDTH = 8
+)(
+  // interface signals
+  input  logic             clk,      // clock
+  input  logic             rst,      // reset
+  input  logic             ld,       // load counter from data
+  input  logic [WIDTH-1:0] v,        // value to preload
+  output logic [WIDTH-1:0] count     // count output
+);
+
+always_ff @ (posedge clk)
+  if (rst) count <= {WIDTH{1'b0}};
+  else     count <= ld ? v : count + {{WIDTH-1{1'b0}},1'b1};
+endmodule
+
+
+Vbuddy’s flag register has two modes of operation. The default mode is **TOGGLE**, which means that everything the rotary encoder switch is pressed, the flag will toggle as indicated at the bottom of the TFT screen.
+
+However, using the **_vbdSetMode(1)_** function, you can set the mode to ONE-SHOT behaviour. Whenever the switch is pressed, the flag register is set to ‘1’ as before – now the flag is **“ARMED”** ready to fire. However, when the flag register is read, it immediate resets to ‘0’.
+
+Modify **counter.sv** so that pressing the switch on EC11 forces the counter to pre-set to Vbuddy’s parameter value. (How?) Compile and test your design.
+
+![](Pasted%20image%2020261018041021.png)
+
+![](20261018_041105.mp4)
+
+**Step 2: Single stepping**
+
+Using the one-shot behaviour of the Vbuddy flag, it is possible to provide one clock pulse each time you press the rotary encoder switch. In other words, you can single step the counting action.
+
+Modify **counter.sv** so that you only increment the counter each time you press the switch.
+
+![](Pasted%20image%2020261018042350.png)
+
+![](20261018_042233.mp4)
+
+## Task 4: Displaying count as Binary Coded Decimal (BCD) numbers (OPTIONAL)
+
+So far, you have only simulated a single module. In this task, you will create a top-level module (**top.sv**), which has the counter module, and a second module that converts the 8-bit binary number into three BCD digits. You can find out how the binary to BCD conversion algorithm works from the course webpage.
+
+Copy and paste the following code to **top.sv**:
+
+module top #(
+  parameter WIDTH = 8
+)(
+  // interface signals
+  input  logic             clk,      // clock
+  input  logic             rst,      // reset
+  input  logic             en,       // enable
+  input  logic [WIDTH-1:0] v,        // value to preload
+  output logic [11:0]      bcd       // count output
+);
+
+  logic  [WIDTH-1:0]       count;    // interconnect wire
+
+counter myCounter (
+  .clk (clk),
+  .rst (rst),
+  .en (en),
+  .v (v),
+  .count (count)
+);
+
+bin2bcd myDecoder (
+  .x (count),
+  .BCD (bcd)
+);
+
+endmodule
+
+![](Pasted%20image%2020261018230526.png)
+
+![](Pasted%20image%2020261018230556.png)
+
+![](20261018_231242.mp4)
