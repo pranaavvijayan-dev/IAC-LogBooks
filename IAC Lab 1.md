@@ -3,7 +3,7 @@
 
 counter.sv
 ![as](Pasted%20image%2020261015104029.png)
-![Pasted image 20261015104114](IAC%20Labs/Pasted%20image%2020261015104114.png)
+![Pasted image 20261015104114](Pasted%20image%2020261015104114.png)
 The counter counts on the positive edge of clk if enable is 1. It is synchronously reset to 0 if rst is asserted. 
 Note the following:
 1. The file name and the module name must be the same.
