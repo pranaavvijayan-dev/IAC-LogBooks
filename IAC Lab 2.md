@@ -52,7 +52,7 @@ Now, make the Verilated model and test your signal generator.
 
 Modify your design so that you use the **_vbdValue()_** function to chage the frequency of the sinewave generated.
 
-![](20261022_150704.mp4)
+![▶ Watch video](20261022_150704.mp4)
 
 
 ## Task 2 - Sine and Cosine Dual wave generation
