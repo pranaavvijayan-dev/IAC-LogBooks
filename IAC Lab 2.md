@@ -6,21 +6,21 @@
 
 Open in VS Code the folder for this repo. In the folder **_task1_**, create the component **rom.sv** according to Lecture 4 slide 14
 
-![](IAC%20Labs/Pasted%20image%2020261022113614.png)
+![](Pasted%20image%2020261022113614.png)
 
-![](IAC%20Labs/Pasted%20image%2020261022143752.png)
+![](Pasted%20image%2020261022143752.png)
 
-![](IAC%20Labs/Pasted%20image%2020261022143716.png)
+![](Pasted%20image%2020261022143716.png)
 
 **Step 2 - Create the sinegen module**
 
 This requires you to create a "top-level" module **_sinegen.sv_**, which includes two components: **_counter.sv_** and **_rom.sv_** as shown below. (See L2 slide 16).
 
-![](IAC%20Labs/Pasted%20image%2020261022135608.png)
+![](Pasted%20image%2020261022135608.png)
 
-![](IAC%20Labs/Pasted%20image%2020261022135527.png)
+![](Pasted%20image%2020261022135527.png)
 
-![](IAC%20Labs/Pasted%20image%2020261022143657.png)
+![](Pasted%20image%2020261022143657.png)
 
 
 **Step 3 - Create the testbench for sinegen**
@@ -40,13 +40,13 @@ Here are two things you should do:
 
 Note that **_vbdGetkey()_** is non-blocking, meaning that it returns immediately with a NULL character if no key is pressed, otherwise it returns the ASCII code of the key being pressed.
 
-![](IAC%20Labs/Pasted%20image%2020261022143632.png)
+![](Pasted%20image%2020261022143632.png)
 
 **Step 4 - Modify the shell script _doit.sh_** You should know how to do this by now.
 
 Now, make the Verilated model and test your signal generator.
 
-![](IAC%20Labs/Pasted%20image%2020261022140200.png)
+![](Pasted%20image%2020261022140200.png)
 
 ### _Test-yourself Challenge_
 
