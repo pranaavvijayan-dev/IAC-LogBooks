@@ -2,7 +2,7 @@
 ![](Pasted%20image%2020261018035832.png)
 
 counter.sv
-![as](Pasted%20image%2020261015104029.png)
+![700](Pasted%20image%2020261015104029.png)
 ![Pasted image 20261015104114](Pasted%20image%2020261015104114.png)
 The counter counts on the positive edge of clk if enable is 1. It is synchronously reset to 0 if rst is asserted. 
 Note the following:
@@ -14,13 +14,13 @@ Note the following:
 
 Here is the mapping between System Verilog and the counter circuit "synthesized" via Verilator:
 
-![](IAC%20Labs/Pasted%20image%2020261015131555.png)
+![](Pasted%20image%2020261015131555.png)
 
 testbench file counter_tb.cpp:
 This testbench file is a template for all other testbench files. It consists of various sections, which are mandatory (except for the trace dump section if you don’t want to see the waveforms). Make sure that you understand what each section is for!
 
 
-![](IAC%20Labs/Pasted%20image%2020261015133125.png)
+![](Pasted%20image%2020261015133125.png)
 
 Compile System Verilog model with testbench: 
 
@@ -44,7 +44,7 @@ This runs very fast, and you may think that nothing happened. However, if you ex
 
 Plot the counter waveforms with GTKWave:
 Start the GTKwave program on your laptop. Select _File -> Open New Tab_ and select **_Vcounter.vcd_** file. A GTKwave window will appear. Click _Top -> counter_, followed by the signals: **_clk, rst, en_** and **_count[7:0]_**. Use the + and - icons to adjust the zoom level. You should see the following.
-![](IAC%20Labs/Pasted%20image%2020261015134915.png)
+![](Pasted%20image%2020261015134915.png)
 
 
 This is the waveform I generated 
@@ -71,7 +71,7 @@ To avoid retyping all the commands to make the executable model, create a shell 
 
 You can now run all the commands in one go by typing:
 
-![](IAC%20Labs/Pasted%20image%2020261015140156.png)
+![](Pasted%20image%2020261015140156.png)
 
 You can now run all the commands in one go by typing:
 
@@ -84,7 +84,7 @@ Alternatively, you can change the permission of **_doit.sh_** to executable with
 to run the script
 
 This file is Vcounter_024root.....0.cpp
-![](IAC%20Labs/Pasted%20image%2020261015140834.png)
+![](Pasted%20image%2020261015140834.png)
 
 
 ## TEST YOURSELF CHALLENGES
@@ -93,9 +93,9 @@ Modify the testbench so that you stop counting for 3 cycles once the counter rea
 The current counter has a synchronous reset. To implement asynchronous reset, you can change line 11 of counter.sv to detect change in rst signal.
 Make these modification, compile, and run. Examine the waveform with GTKwave and explain what you see.
 
-![](IAC%20Labs/Pasted%20image%2020261015141544.png)
+![](Pasted%20image%2020261015141544.png)
 
-![](IAC%20Labs/Pasted%20image%2020261015141605.png)
+![](Pasted%20image%2020261015141605.png)
 
 
 This is the simulation with the 3 cycle pause.
