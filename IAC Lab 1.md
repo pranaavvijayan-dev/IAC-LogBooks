@@ -145,7 +145,7 @@ Modify the testbench file **_count_tb.cpp_** to include **Vbuddy function** as s
 
 ![](Pasted%20image%2020261018010451.png)
 
-![](1000049559.mp4)
+[▶ Watch video](./1000049559.mp4)
 
 **Step 3: Explore flag feature on Vbuddy**
 
@@ -161,7 +161,7 @@ Instead of showing count values on 7-segment displays, you may also plot this on
 
     vbdPlot(int(top->count), 0, 255);
 
-![](20261018_024703.mp4)
+[▶ Watch video](./20261018_024703.mp4)
 
 ## TEST YOURSELF CHALLENGE:
 
@@ -169,7 +169,7 @@ Modify your counter and testbench files so that the **_en_** signal controls the
 
 ![](Pasted%20image%2020261018032642.png)
 
-![](20261018_032612.mp4)
+[▶ Watch video](./20261018_032612.mp4)
 
 
 ## Task 3: Vbuddy parameter & flag in one-shot mode (OPTIONAL)
@@ -205,7 +205,7 @@ Modify **counter.sv** so that pressing the switch on EC11 forces the counter to 
 
 ![](Pasted%20image%2020261018041021.png)
 
-![](20261018_041105.mp4)
+[▶ Watch video](./20261018_041105.mp4)
 
 **Step 2: Single stepping**
 
@@ -215,7 +215,7 @@ Modify **counter.sv** so that you only increment the counter each time you press
 
 ![](Pasted%20image%2020261018042350.png)
 
-![](20261018_042233.mp4)
+[▶ Watch video](./20261018_042233.mp4)
 
 ## Task 4: Displaying count as Binary Coded Decimal (BCD) numbers (OPTIONAL)
 
@@ -255,4 +255,4 @@ endmodule
 
 ![](Pasted%20image%2020261018230556.png)
 
-![](20261018_231242.mp4)
+[▶ Watch video](./20261018_231242.mp4)
