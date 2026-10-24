@@ -73,3 +73,40 @@ By setting the offset value to 64, the two waveforms will be exactly 90 degrees 
 
 ![](Pasted%20image%2020261022195706.png)
 
+## Task 3 - Capture and display audio signal in RAM
+---
+
+The goal of Task 3 is to capture real audio signal using the microphone/amplifier module on Vbuddy. These samples are written to a dual-port RAM stored in successive locations. At the same time, read back from the RAM the store signal at a different address offset from the write address. In this way, the retrieved signal is a delayed version of the original signal.
+
+The difference between the read and write addresses is the offset. Use the **_vbdValue()_** function to vary this offset using the rotary encoder.
+
+You can plot both the write and read data on the Vbuddy display (using **_vbdPlot()_** function).
+
+Capturing audio signal from Vbuddy requires two steps:
+
+1. Use the **_vbdInitMicIn()_** function to inform Vbuddy the size of audio signal buffer to reserve for storing the captured sample.
+2. Use the **_vbdMicValue()_** function to return the next sample in the audio buffer. When all the samples are exhausted, Vbuddy will automatically capture another block of audio samples and store them in the audio buffer.
+
+```c
+  // intialize variables for analogue output
+  vbdInitMicIn(RAM_SZ);
+  
+  // ask Vbuddy to return the next audio sample
+  top->mic_signal = vbdMicValue();
+```
+
+To perform this task you need to first create a 512 x 8 bit dual-port RAM component. (See notes.) Combine the dual-port RAM with the counter to form a top-level module (say, **_sigdelay.sv_**). To save time, the testbench **_sigdelay_tb.cpp_** is provide for you in the Lab_2 repo.
+
+Compile and test your design. You need an audio signal source. I suggest that you can use the following online website to generate a variety of signals at different frequencies:
+
+[Tone Generator](https://onlinetonegenerator.com/)
+
+![](../Pasted%20image%2020261024230244.png)
+
+![](../Pasted%20image%2020261024230317.png)
+
+![](../Pasted%20image%2020261024230331.png)
+
+![](../Pasted%20image%2020261024230422.png)
+
+![](../20261024_225841.mp4)
