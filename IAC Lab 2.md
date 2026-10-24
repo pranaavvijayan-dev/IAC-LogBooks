@@ -101,12 +101,12 @@ Compile and test your design. You need an audio signal source. I suggest that yo
 
 [Tone Generator](https://onlinetonegenerator.com/)
 
-![](../Pasted%20image%2020261024230244.png)
+![](Pasted%20image%2020261024230244.png)
 
-![](../Pasted%20image%2020261024230317.png)
+![](Pasted%20image%2020261024230317.png)
 
-![](../Pasted%20image%2020261024230331.png)
+![](Pasted%20image%2020261024230331.png)
 
-![](../Pasted%20image%2020261024230422.png)
+![](Pasted%20image%2020261024230422.png)
 
-![](../20261024_225841.mp4)
+![](20261024_225841.mp4)
