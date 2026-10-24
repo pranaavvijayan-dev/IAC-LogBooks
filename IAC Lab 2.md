@@ -109,4 +109,4 @@ Compile and test your design. You need an audio signal source. I suggest that yo
 
 ![](Pasted%20image%2020261024230422.png)
 
-![](20261024_225841.mp4)
+![▶ Watch video](20261024_225841.mp4)
